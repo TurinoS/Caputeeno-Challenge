@@ -3,8 +3,8 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Saira_Stencil_One } from 'next/font/google';
-import shoppingBag from '../../public/Group.png';
-import serchLoupe from '../../public/search-loupe.png';
+import shoppingBag from '../../public/Cart.png';
+import serchLoupe from '../../public/Loupe.png';
 import Image from 'next/image';
 
 const sairaStencil = Saira_Stencil_One({ 
@@ -58,6 +58,7 @@ const StyledInput = styled.div`
         padding: .8em 1em;
         font-size: .8em;
         font-family: inherit;
+        color: var(--text-dark)
     }
 
     & img {

@@ -2,6 +2,7 @@ import Header from '@/components/Header'
 import './globals.css'
 import type { Metadata } from 'next'
 import { Saira } from 'next/font/google'
+import StyledJsxRegistry from '../../registry'
 
 const saira = Saira({ 
   weight: ['300', '400', '500', '800'],
@@ -21,8 +22,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={saira.className}>
-        <Header />
-        {children}
+        <StyledJsxRegistry>
+          <Header />
+          {children}
+        </StyledJsxRegistry>
       </body>
     </html>
   )

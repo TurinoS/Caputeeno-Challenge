@@ -1,8 +1,10 @@
 :root {
   --white: #fff;
   --gray: #f3f5f6;
+  --text-dark: #737380;
   --dark-gray: #5d5d6d;
   --red: #de3838;
+  --orange: #FFA585;
 }
 
 * {
@@ -16,4 +18,9 @@ body {
   max-width: 100vw;
   overflow-x: hidden;
   background-color: var(--gray);
+  color: var(--text-dark);
+}
+
+main {
+  padding: 0 10em;
 }
