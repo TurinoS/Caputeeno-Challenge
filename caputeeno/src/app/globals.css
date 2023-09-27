@@ -1,6 +1,7 @@
 :root {
   --white: #fff;
-  --gray: #f3f5f6;
+  --light-gray: #f3f5f6;
+  --gray: #E9E9F0;
   --text-dark: #737380;
   --dark-gray: #5d5d6d;
   --red: #de3838;
@@ -15,7 +16,7 @@
 
 html,
 body {
-  background-color: var(--gray);
+  background-color: var(--light-gray);
   color: var(--text-dark);
 }
 

@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import arrowDown from "../../public/Arrow.png";
+import arrowDown from "../../public/DownArrow.png";
 import Image from "next/image";
 import { useState } from "react";
 
