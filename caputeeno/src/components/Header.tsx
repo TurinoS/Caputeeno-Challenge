@@ -64,6 +64,7 @@ const StyledInput = styled.div`
     & img {
         position: relative;
         right: 68px;
+        cursor: pointer;
     }
 `
 
