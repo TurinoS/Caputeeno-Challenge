@@ -2,7 +2,7 @@
 
 import Filter from "@/components/Filter"
 import Pagination from "@/components/Pagination"
-import ProductCard from "@/components/ProductCard";
+import ProductList from "@/components/ProductList";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query"
 
 export default function Home() {
@@ -12,7 +12,7 @@ export default function Home() {
       <main>
         <Filter />
         <Pagination />
-        <ProductCard />
+        <ProductList />
         <h1>Hello World</h1>
         
       </main>
