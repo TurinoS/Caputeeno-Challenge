@@ -23,8 +23,8 @@ export default function RootLayout({
     <html lang="en">
       <body className={saira.className}>
         <StyledJsxRegistry>
-          <Header />
-          {children}
+            <Header />
+            {children}
         </StyledJsxRegistry>
       </body>
     </html>

@@ -40,7 +40,7 @@ const StyledFilter = styled.div`
       color: var(--text-dark);
       font-family: inherit;
       cursor: pointer;
-      background-color: var(--gray);
+      background-color: var(--light-gray);
     }
 
     & .options {
