@@ -34,7 +34,7 @@ const StyledFilter = styled.div`
     & button {
       display: flex;
       align-items: center;
-      margin-left:auto;
+      margin-left: auto;
       gap: 0.5em;
       border: none;
       color: var(--text-dark);
@@ -49,7 +49,7 @@ const StyledFilter = styled.div`
       flex-direction: column;
       gap: 4px;
       background-color: var(--white);
-      padding: .8em 1em;
+      padding: 0.8em 1em;
       border-radius: 4px;
       position: absolute;
       top: 100%;
