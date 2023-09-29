@@ -39,11 +39,19 @@ const PaginationList = styled.ul`
 `;
 
 export default function Pagination() {
-  const { page, setPage } = useContext(ContextApi);
+  const { page, setPage, filter } = useContext(ContextApi);
+
+  let pageNumber = [1, 2, 3, 4, 5]
+
+  if (filter === "TODOS OS PRODUTOS") {
+    pageNumber = [1, 2, 3, 4, 5];
+  } else {
+    pageNumber = [1, 2, 3];
+  }
 
   return (
     <PaginationList>
-      {[1,2,3,4,5].map((number) => (
+      {pageNumber.map((number) => (
         <>
           <li onClick={() => setPage(number)} className={page === number ? "selected" : ""}>
             <p>{number}</p>
@@ -55,7 +63,7 @@ export default function Pagination() {
           <Image src={arrowLeft} alt="Previous page" width={24} />
         </p>
       </li>
-      <li onClick={() => page != 5 && setPage(page + 1)}>
+      <li onClick={() => page != pageNumber.length && setPage(page + 1)}>
         <p>
           <Image src={arrowRight} alt="Next page" width={24} />
         </p>

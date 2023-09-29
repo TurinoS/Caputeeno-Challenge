@@ -15,17 +15,22 @@ type ContextApiType = {
   products: Product[];
   page: number;
   setPage: (page: number) => void;
+  filter: string;
+  setFilter: (filter: string) => void;
 };
 
 export const ContextApi = createContext<ContextApiType>({
   products: [],
   page: 1,
   setPage: (page: number) => {},
+  filter: "TODOS OS PRODUTOS",
+  setFilter: (filter: string) => {},
 });
 
 export function ContextApiProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
+  const [filter, setFilter] = useState("TODOS OS PRODUTOS")
 
   useEffect(() => {
     const fetchData = async () => {
@@ -39,6 +44,6 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ContextApi.Provider value={{ products, page, setPage }}>{children}</ContextApi.Provider>
+    <ContextApi.Provider value={{ products, page, setPage, filter, setFilter }}>{children}</ContextApi.Provider>
   );
 }

@@ -15,9 +15,19 @@ const StyledSection = styled.section`
 `;
 
 export default function ProductList() {
-  const { products, page } = useContext(ContextApi);
+  const { products, page, filter } = useContext(ContextApi);
 
-  if (!Array.isArray(products) || products.length === 0) {
+  let productsToRender = products;
+
+  if (filter === "TODOS OS PRODUTOS") {
+    productsToRender = products;
+  } else if (filter === "CANECAS") {
+    productsToRender = products.filter((product) => product.category === "mugs");
+  } else if (filter === "CAMISETAS") {
+    productsToRender = products.filter((product) => product.category === "t-shirts");
+  }
+
+  if (productsToRender.length === 0) {
     return <div>Loading...</div>;
   }
 
@@ -26,7 +36,7 @@ export default function ProductList() {
 
   return (
     <StyledSection>
-      {products.slice(firstProduct, lastProduct).map((product) => (
+      {productsToRender.slice(firstProduct, lastProduct).map((product) => (
         <ProductCard
           name={product.name}
           src={product.image_url}

@@ -3,7 +3,8 @@
 import styled from "styled-components";
 import arrowDown from "../../public/DownArrow.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContextApi } from "@/context/ContextApi";
 
 const StyledFilter = styled.div`
   display: flex;
@@ -64,26 +65,33 @@ const StyledFilter = styled.div`
 `;
 
 export default function Filter() {
-  const [openFilter, setOpenFilter] = useState(false);
+  const { filter, setFilter } = useContext(ContextApi)
+  const [openMenu, setOpenMenu] = useState(false);
 
   return (
     <StyledFilter>
       <ul className="filter">
-        <li className="selected">TODOS OS PRODUTOS</li>
-        <li>CAMISETAS</li>
-        <li>CANECAS</li>
+        {["TODOS OS PRODUTOS", "CAMISETAS", "CANECAS"].map((item) => (
+          <li
+            key={item} 
+            className={item === filter ? "selected" : ""}
+            onClick={() => setFilter(item)}
+          >
+            {item}
+          </li>
+        ))}
       </ul>
       <div>
         <button>
-          Organizar por{" "}
+          Organizar por
           <Image
             src={arrowDown}
             alt="Open list"
             width={30}
-            onClick={() => setOpenFilter(!openFilter)}
+            onClick={() => setOpenMenu(!openMenu)}
           />
         </button>
-        {openFilter && (
+        {openMenu && (
           <ul className="options">
             <li>Novidades</li>
             <li>Preço: Maior - menor</li>
