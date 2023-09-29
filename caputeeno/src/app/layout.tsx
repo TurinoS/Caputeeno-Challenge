@@ -3,6 +3,7 @@ import './globals.css'
 import type { Metadata } from 'next'
 import { Saira } from 'next/font/google'
 import StyledJsxRegistry from '../../registry'
+import { ContextApiProvider } from '@/context/ContextApi'
 
 const saira = Saira({ 
   weight: ['300', '400', '500', '800'],
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={saira.className}>
+          <ContextApiProvider>
         <StyledJsxRegistry>
-            <Header />
-            {children}
+              <Header />
+              {children}
         </StyledJsxRegistry>
+          </ContextApiProvider>
       </body>
     </html>
   )
