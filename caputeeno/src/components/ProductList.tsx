@@ -15,15 +15,18 @@ const StyledSection = styled.section`
 `;
 
 export default function ProductList() {
-  const { products } = useContext(ContextApi);
+  const { products, page } = useContext(ContextApi);
 
   if (!Array.isArray(products) || products.length === 0) {
     return <div>Loading...</div>;
   }
 
+  const firstProduct = (page - 1) * 12;
+  const lastProduct = (page * 12);
+
   return (
     <StyledSection>
-      {products.map((product) => (
+      {products.slice(firstProduct, lastProduct).map((product) => (
         <ProductCard
           name={product.name}
           src={product.image_url}

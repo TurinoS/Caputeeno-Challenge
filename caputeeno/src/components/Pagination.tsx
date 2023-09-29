@@ -5,8 +5,10 @@ import styled from "styled-components";
 import arrowRight from "../../public/RightArrow.png";
 import arrowLeft from "../../public/LeftArrow.png";
 import Image from "next/image";
+import { useContext } from "react";
+import { ContextApi } from "@/context/ContextApi";
 
-const LinkList = styled.ul`
+const PaginationList = styled.ul`
   list-style: none;
   display: flex;
   justify-content: flex-end;
@@ -19,11 +21,7 @@ const LinkList = styled.ul`
     height: 25px;
     text-align: center;
     border: 1px solid var(--gray);
-
-    & a {
-      text-decoration: none;
-      color: var(--text-dark);
-    }
+    cursor: pointer;
   }
 
   & .arrow {
@@ -34,40 +32,34 @@ const LinkList = styled.ul`
     border: 1px solid var(--orange);
     background-color: var(--light-gray);
 
-    & a {
+    & p {
       color: var(--orange);
     }
   }
 `;
 
 export default function Pagination() {
+  const { page, setPage } = useContext(ContextApi);
+
   return (
-    <LinkList>
-      <li className="selected">
-        <Link href="/">1</Link>
-      </li>
-      <li>
-        <Link href="/page2">2</Link>
-      </li>
-      <li>
-        <Link href="/page3">3</Link>
-      </li>
-      <li>
-        <Link href="/page4">4</Link>
-      </li>
-      <li>
-        <Link href="/page5">5</Link>
-      </li>
-      <li className="arrow">
-        <Link href="#">
+    <PaginationList>
+      {[1,2,3,4,5].map((number) => (
+        <>
+          <li onClick={() => setPage(number)} className={page === number ? "selected" : ""}>
+            <p>{number}</p>
+          </li>
+        </>
+      ))}
+      <li onClick={() => page != 1 && setPage(page - 1)} className="arrow">
+        <p>
           <Image src={arrowLeft} alt="Previous page" width={24} />
-        </Link>
+        </p>
       </li>
-      <li>
-        <Link href="#">
+      <li onClick={() => page != 5 && setPage(page + 1)}>
+        <p>
           <Image src={arrowRight} alt="Next page" width={24} />
-        </Link>
+        </p>
       </li>
-    </LinkList>
+    </PaginationList>
   );
 }
