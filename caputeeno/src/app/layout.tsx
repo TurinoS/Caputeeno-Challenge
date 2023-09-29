@@ -23,12 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={saira.className}>
-          <ContextApiProvider>
-        <StyledJsxRegistry>
-              <Header />
-              {children}
-        </StyledJsxRegistry>
-          </ContextApiProvider>
+        <ContextApiProvider>
+          <StyledJsxRegistry>
+                <Header />
+                {children}
+          </StyledJsxRegistry>
+        </ContextApiProvider>
       </body>
     </html>
   )
