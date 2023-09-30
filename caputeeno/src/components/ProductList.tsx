@@ -15,7 +15,7 @@ const StyledSection = styled.section`
 `;
 
 export default function ProductList() {
-  const { products, page, filter } = useContext(ContextApi);
+  const { products, page, filter, sortBy } = useContext(ContextApi);
 
   let productsToRender = products;
 
@@ -25,6 +25,18 @@ export default function ProductList() {
     productsToRender = products.filter((product) => product.category === "mugs");
   } else if (filter === "CAMISETAS") {
     productsToRender = products.filter((product) => product.category === "t-shirts");
+  }
+
+  if (sortBy === "newest") {
+    productsToRender.sort((a, b) => {
+      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+    });
+  } else if (sortBy === "costlier") {
+    productsToRender.sort((a, b) => b.price_in_cents - a.price_in_cents);
+  } else if (sortBy === "cheaper") {
+    productsToRender.sort((a, b) => a.price_in_cents - b.price_in_cents);
+  } else if (sortBy === "bestseller") {
+    productsToRender.sort((a, b) => b.sales - a.sales);
   }
 
   if (productsToRender.length === 0) {

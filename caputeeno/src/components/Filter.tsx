@@ -65,7 +65,7 @@ const StyledFilter = styled.div`
 `;
 
 export default function Filter() {
-  const { filter, setFilter } = useContext(ContextApi)
+  const { setPage, filter, setFilter, setSortBy } = useContext(ContextApi)
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
@@ -75,7 +75,10 @@ export default function Filter() {
           <li
             key={item} 
             className={item === filter ? "selected" : ""}
-            onClick={() => setFilter(item)}
+            onClick={() => {
+              setFilter(item)
+              setPage(1)
+            }}
           >
             {item}
           </li>
@@ -93,10 +96,10 @@ export default function Filter() {
         </button>
         {openMenu && (
           <ul className="options">
-            <li>Novidades</li>
-            <li>Preço: Maior - menor</li>
-            <li>Preço: Menor - maior</li>
-            <li>Mais vendidos</li>
+            <li onClick={() => setSortBy("newest")}>Novidades</li>
+            <li onClick={() => setSortBy("costlier")}>Preço: Maior - menor</li>
+            <li onClick={() => setSortBy("cheaper")}>Preço: Menor - maior</li>
+            <li onClick={() => setSortBy("bestseller")}>Mais vendidos</li>
           </ul>
         )}
       </div>
