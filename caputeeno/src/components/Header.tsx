@@ -6,6 +6,8 @@ import { Saira_Stencil_One } from "next/font/google";
 import shoppingBag from "../../public/Cart.png";
 import serchLoupe from "../../public/Loupe.png";
 import Image from "next/image";
+import { useContext } from "react";
+import { ContextApi } from "@/context/ContextApi";
 
 const sairaStencil = Saira_Stencil_One({
   weight: "400",
@@ -48,7 +50,7 @@ const StyledHeader = styled.header`
   }
 `;
 
-const StyledInput = styled.div`
+const StyledInput = styled.form`
   & input {
     border: none;
     background-color: var(--light-gray);
@@ -58,16 +60,21 @@ const StyledInput = styled.div`
     font-size: 0.8em;
     font-family: inherit;
     color: var(--text-dark);
+    outline: none;
+    height: 40px;
   }
 
   & img {
     position: relative;
-    right: 68px;
+    right: 40px;
+    top: 10px;
     cursor: pointer;
   }
 `;
 
 export default function Header() {
+  const { setSearch } = useContext(ContextApi);
+
   return (
     <StyledHeader>
       <Link className={sairaStencil.className} href="/">
@@ -75,7 +82,7 @@ export default function Header() {
       </Link>
       <div>
         <StyledInput>
-          <input type="text" placeholder="Procurando por algo específico?" />
+          <input type="text" placeholder="Procurando por algo específico?" onChange={(e) => setSearch(e.target.value)} />
           <Image src={serchLoupe} alt="search" width={30} />
         </StyledInput>
         <Link href="/cart">

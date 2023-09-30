@@ -17,6 +17,8 @@ type ContextApiType = {
   products: Product[];
   page: number;
   setPage: (page: number) => void;
+  search: string,
+  setSearch: (search: string) => void,
   filter: string;
   setFilter: (filter: string) => void;
   sortBy: string;
@@ -27,6 +29,8 @@ export const ContextApi = createContext<ContextApiType>({
   products: [],
   page: 1,
   setPage: () => {},
+  search: "",
+  setSearch: () => {},
   filter: "TODOS OS PRODUTOS",
   setFilter: () => {},
   sortBy: "",
@@ -36,8 +40,9 @@ export const ContextApi = createContext<ContextApiType>({
 export function ContextApiProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
-  const [filter, setFilter] = useState("TODOS OS PRODUTOS")
-  const [sortBy, setSortBy] = useState("TODOS OS PRODUTOS")
+  const [search, setSearch] = useState("");
+  const [filter, setFilter] = useState("TODOS OS PRODUTOS");
+  const [sortBy, setSortBy] = useState("");
 
   useEffect(() => {
     const fetchData = async () => {
@@ -51,6 +56,6 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <ContextApi.Provider value={{ products, page, setPage, filter, setFilter, sortBy, setSortBy }}>{children}</ContextApi.Provider>
+    <ContextApi.Provider value={{ products, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy }}>{children}</ContextApi.Provider>
   );
 }

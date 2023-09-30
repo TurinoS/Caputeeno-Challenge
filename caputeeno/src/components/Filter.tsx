@@ -56,7 +56,7 @@ const StyledFilter = styled.div`
       top: 100%;
       left: 10px;
       z-index: 1;
-
+      
       & li {
         cursor: pointer;
       }
@@ -65,7 +65,7 @@ const StyledFilter = styled.div`
 `;
 
 export default function Filter() {
-  const { setPage, filter, setFilter, setSortBy } = useContext(ContextApi)
+  const { setPage, filter, setFilter, sortBy, setSortBy } = useContext(ContextApi)
   const [openMenu, setOpenMenu] = useState(false);
 
   return (
@@ -85,13 +85,12 @@ export default function Filter() {
         ))}
       </ul>
       <div>
-        <button>
-          Organizar por
+        <button onClick={() => setOpenMenu(!openMenu)}>
+          {!sortBy ? "Organizar por" : sortBy === "newest" ? "Novidades" : sortBy === "costlier" ? "Preço: Maior - menor" : sortBy === "cheaper" ? "Preço: Menor - maior" :  "Mais vendidos"}
           <Image
             src={arrowDown}
             alt="Open list"
             width={30}
-            onClick={() => setOpenMenu(!openMenu)}
           />
         </button>
         {openMenu && (

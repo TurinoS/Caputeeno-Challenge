@@ -14,17 +14,36 @@ const StyledSection = styled.section`
   justify-content: space-between;
 `;
 
-export default function ProductList() {
-  const { products, page, filter, sortBy } = useContext(ContextApi);
+const StyledError = styled.div`
+  text-align: center;
+  margin-top: 2em;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--red);
+`
 
+export default function ProductList() {
+  const { products, page, filter, sortBy, search } = useContext(ContextApi);
+
+  let productsSearched = products;
   let productsToRender = products;
 
+  if(search === "") {
+    productsSearched = products;
+  } else {
+    const searchLowerCase = search.toLowerCase();
+    productsSearched = products.filter((product) => {
+      const productNameLowerCase = product.name.toLowerCase();
+      return productNameLowerCase.includes(searchLowerCase);
+    });
+  }
+
   if (filter === "TODOS OS PRODUTOS") {
-    productsToRender = products;
+    productsToRender = productsSearched;
   } else if (filter === "CANECAS") {
-    productsToRender = products.filter((product) => product.category === "mugs");
+    productsToRender = productsSearched.filter((product) => product.category === "mugs");
   } else if (filter === "CAMISETAS") {
-    productsToRender = products.filter((product) => product.category === "t-shirts");
+    productsToRender = productsSearched.filter((product) => product.category === "t-shirts");
   }
 
   if (sortBy === "newest") {
@@ -39,8 +58,10 @@ export default function ProductList() {
     productsToRender.sort((a, b) => b.sales - a.sales);
   }
 
-  if (productsToRender.length === 0) {
-    return <div>Loading...</div>;
+  if (productsToRender.length === 0 && search) {
+    return <StyledError>Produto não encontrado</StyledError>;
+  } else if(productsToRender.length === 0) {
+    return <StyledError>Carregando...</StyledError>;
   }
 
   const firstProduct = (page - 1) * 12;
@@ -50,6 +71,7 @@ export default function ProductList() {
     <StyledSection>
       {productsToRender.slice(firstProduct, lastProduct).map((product) => (
         <ProductCard
+          id={product.id}
           name={product.name}
           src={product.image_url}
           price={product.price_in_cents}

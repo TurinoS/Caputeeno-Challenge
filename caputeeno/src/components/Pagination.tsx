@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import styled from "styled-components";
 import arrowRight from "../../public/RightArrow.png";
 import arrowLeft from "../../public/LeftArrow.png";
@@ -39,7 +38,7 @@ const PaginationList = styled.ul`
 `;
 
 export default function Pagination() {
-  const { page, setPage, filter } = useContext(ContextApi);
+  const { page, setPage, filter, search } = useContext(ContextApi);
 
   let pageNumber = [1, 2, 3, 4, 5]
 
@@ -51,23 +50,27 @@ export default function Pagination() {
 
   return (
     <PaginationList>
-      {pageNumber.map((number) => (
+      {!search &&
         <>
-          <li onClick={() => setPage(number)} className={page === number ? "selected" : ""}>
-            <p>{number}</p>
+          {pageNumber.map((number) => (
+            <div key={number}>
+              <li onClick={() => setPage(number)} className={page === number ? "selected" : ""}>
+                <p>{number}</p>
+              </li>
+            </div>
+          ))}
+          <li onClick={() => page != 1 && setPage(page - 1)} className="arrow">
+            <p>
+              <Image src={arrowLeft} alt="Previous page" width={24} />
+            </p>
+          </li>
+          <li onClick={() => page != pageNumber.length && setPage(page + 1)}>
+            <p>
+              <Image src={arrowRight} alt="Next page" width={24} />
+            </p>
           </li>
         </>
-      ))}
-      <li onClick={() => page != 1 && setPage(page - 1)} className="arrow">
-        <p>
-          <Image src={arrowLeft} alt="Previous page" width={24} />
-        </p>
-      </li>
-      <li onClick={() => page != pageNumber.length && setPage(page + 1)}>
-        <p>
-          <Image src={arrowRight} alt="Next page" width={24} />
-        </p>
-      </li>
+      }
     </PaginationList>
   );
 }

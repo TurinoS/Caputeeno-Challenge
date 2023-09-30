@@ -2,6 +2,7 @@
   --white: #fff;
   --light-gray: #f3f5f6;
   --gray: #e9e9f0;
+  --medium-gray: #DCE2E5;
   --text-dark: #737380;
   --dark-gray: #5d5d6d;
   --black: #09090a;
@@ -21,6 +22,7 @@ html,
 body {
   background-color: var(--light-gray);
   color: var(--text-dark);
+  padding-bottom: 2em;
 }
 
 main {

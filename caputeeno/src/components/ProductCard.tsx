@@ -4,25 +4,34 @@ import Image from "next/image";
 import styled from "styled-components";
 
 interface CardProps {
+  id: string;
   name: string;
   src: string;
   price: number;
 }
 
-const Card = styled.div`
+const Card = styled.a`
   overflow: hidden;
   border-radius: 8px 8px 0 0;
   width: fit-content;
+  text-decoration: none;
+  color: var(--text-dark);
+  background-color: var(--white);
+  transform: scale(1);
+  transition: 450ms;
 
   &:hover {
     scale: 1.05;
-    transition: 450ms ease-in-out;
+  }
+
+  & div {
+    padding: 0 12px;
   }
 
   & h4 {
     font-weight: 300;
-    padding: 2px 12px 6px;
-    border-bottom: 1px solid var(--gray);
+    padding: 2px 0 6px;
+    border-bottom: 1px solid var(--medium-gray);
     line-height: 24px;
   }
 
@@ -30,17 +39,19 @@ const Card = styled.div`
     font-size: 14px;
     font-weight: 600;
     color: var(--black);
-    padding: 6px 12px;
+    padding: 6px 0;
     line-height: 21px;
   }
 `;
 
-export default function ProductCard({ name, src, price }: CardProps) {
+export default function ProductCard({ id, name, src, price }: CardProps) {
   return (
-    <Card>
+    <Card href={`/product/${id}`}>
       <Image src={src} alt={name} width={240} height={250} />
-      <h4>{name}</h4>
-      <p>R${price / 100}</p>
+      <div>
+        <h4>{name}</h4>
+        <p>R${price / 100}</p>
+      </div>
     </Card>
   );
 }
