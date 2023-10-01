@@ -1,6 +1,8 @@
 import Image from "next/image";
 import styled from "styled-components";
 import shoppingBag from "../../public/WhiteCart.png";
+import { ContextApi, Product } from "@/context/ContextApi";
+import { useContext } from "react";
 
 interface ProductDetailsProps {
   image: string;
@@ -8,7 +10,7 @@ interface ProductDetailsProps {
   name: string;
   price: number;
   description: string;
-  id: string;
+  product: Product;
 }
 
 const StyledProductDetails = styled.section`
@@ -81,8 +83,9 @@ export default function ProductDetails({
   category,
   price,
   description,
-  id,
+  product,
 }: ProductDetailsProps) {
+  const { addToCart } = useContext(ContextApi)
   return (
     <StyledProductDetails>
       <Image src={image} alt={name} width={400} height={430} />
@@ -98,7 +101,7 @@ export default function ProductDetails({
           <h4>DESCRIÇÃO</h4>
           <h5>{description}</h5>
         </div>
-        <button>
+        <button onClick={() => addToCart(product, 1)}>
           <Image src={shoppingBag} alt="Add to cart" width={24} /> ADICIONAR AO
           CARRINHO
         </button>

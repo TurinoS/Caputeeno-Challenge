@@ -29,7 +29,7 @@ export default function ProductPage({ params }: ProductProps) {
         name={selectedProduct.name}
         price={selectedProduct.price_in_cents}
         description={selectedProduct.description}
-        id={selectedProduct.id}
+        product={selectedProduct}
       />
     </main>
   );
