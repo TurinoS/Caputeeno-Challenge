@@ -1,4 +1,6 @@
+import { ContextApi } from "@/context/ContextApi";
 import Link from "next/link";
+import { useContext } from "react";
 import styled from "styled-components";
 
 const StyledCartProducts = styled.div`
@@ -31,6 +33,10 @@ const StyledCartProducts = styled.div`
             border-bottom: 1px solid var(--text-dark);
         }
 
+        & .scratched {
+            text-decoration: line-through;
+        }
+
         & .total {
             font-weight: 600;
             color: var(--dark-gray);
@@ -55,7 +61,7 @@ const StyledCartProducts = styled.div`
 `
 
 export default function CartSummary() {
-    const subTotalPrice = 161.00
+    const { cartPrice } = useContext(ContextApi)
 
     return(
         <StyledCartProducts>
@@ -63,15 +69,15 @@ export default function CartSummary() {
                 <h2>RESUMO DO PEDIDO</h2>
                 <div>
                     <p>Subtotal de produtos</p>
-                    <p>R${subTotalPrice}</p>
+                    <p>R${cartPrice}</p>
                 </div>
-                <div className="delivery">
+                <div className={`delivery ${cartPrice > 900 && "scratched"}`}>
                     <p>Entrega</p>
                     <p>R$40.00</p>
                 </div>
                 <div className="total">
                     <p>Total</p>
-                    <p>R$201.00</p>
+                    <p>R${cartPrice > 900 ? cartPrice : (cartPrice + 40)}</p>
                 </div>
                 <button>FINALIZAR COMPRA</button>
             </section>

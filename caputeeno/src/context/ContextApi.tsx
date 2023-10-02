@@ -26,6 +26,7 @@ type ContextApiType = {
   setSortBy: (sortBy: string) => void;
   addToCart: (product: Product, quantity: number) => void;
   cartQuantity: number;
+  cartPrice: number;
 };
 
 export const ContextApi = createContext<ContextApiType>({
@@ -40,6 +41,7 @@ export const ContextApi = createContext<ContextApiType>({
   setSortBy: () => {},
   addToCart: () => {},
   cartQuantity: 0,
+  cartPrice: 0,
 });
 
 export function ContextApiProvider({ children }: { children: ReactNode }) {
@@ -48,7 +50,11 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("TODOS OS PRODUTOS");
   const [sortBy, setSortBy] = useState("");
-  const [cartQuantity, setCartQuantity] = useState(0);
+
+  const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
+  const [cartQuantity, setCartQuantity] = useState(cartItems.reduce((total: number, item: Product) => total + item.quantity, 0));
+  const calculateTotalPrice = (item: Product) => item.price_in_cents * item.quantity;
+  const [cartPrice, setCartPrice] = useState(cartItems.reduce((total: number, item: Product) => total + calculateTotalPrice(item), 0) / 100);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -81,10 +87,12 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
     localStorage.setItem('cartItems', JSON.stringify(cartItemsArray));
 
     const newCartQuantity = cartItemsArray.reduce((total: number, item: Product) => total + item.quantity, 0);
+    const newCartPrice= cartItemsArray.reduce((total: number, item: Product) => total + calculateTotalPrice(item), 0) / 100;
     setCartQuantity(newCartQuantity);
+    setCartPrice(newCartPrice);
   }
 
   return (
-    <ContextApi.Provider value={{ products, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity }}>{children}</ContextApi.Provider>
+    <ContextApi.Provider value={{ products, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity, cartPrice }}>{children}</ContextApi.Provider>
   );
 }

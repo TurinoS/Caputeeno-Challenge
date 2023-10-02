@@ -1,4 +1,5 @@
-import { ReactNode } from "react";
+import { ContextApi } from "@/context/ContextApi";
+import { ReactNode, useContext } from "react";
 import styled from "styled-components";
 
 const StyledCartProducts = styled.div`
@@ -23,13 +24,12 @@ const StyledCartProducts = styled.div`
 `
 
 export default function CartProductsList({ children }: {children: ReactNode}) {
-    const number = 3
-    const subTotalPrice = 161.00
+    const { cartQuantity, cartPrice } = useContext(ContextApi);
 
     return(
         <StyledCartProducts>
             <h2>SEU CARRINHO</h2>
-            <p>Total ({number} produtos) <span>R${subTotalPrice}</span></p>
+            <p>Total ({cartQuantity} produtos) <span>R${cartPrice}</span></p>
             {children}
         </StyledCartProducts>
     )
