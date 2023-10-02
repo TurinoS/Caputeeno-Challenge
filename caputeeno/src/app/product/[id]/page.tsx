@@ -4,6 +4,7 @@ import BackButton from "@/components/BackButton";
 import ProductDetails from "@/components/ProductDetails";
 import { ContextApi } from "@/context/ContextApi";
 import { useContext } from "react";
+import styled from "styled-components";
 
 interface ProductProps {
   params: {
@@ -11,13 +12,21 @@ interface ProductProps {
   };
 }
 
+const StyledError = styled.div`
+  text-align: center;
+  margin-top: 2em;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--red);
+`
+
 export default function ProductPage({ params }: ProductProps) {
   const { products } = useContext(ContextApi);
 
   const selectedProduct = products?.find((product) => product.id === params.id);
 
   if (!selectedProduct) {
-    return <div>Loading...</div>;
+    return <StyledError>Loading...</StyledError>;
   }
 
   return (

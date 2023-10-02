@@ -28,6 +28,9 @@ type ContextApiType = {
   addToCart: (product: Product, quantity: number) => void;
   cartQuantity: number;
   cartPrice: number;
+  setCartPrice: (price: number) => void;
+  reRender: boolean;
+  setReRender: (e: boolean) => void;
 };
 
 export const ContextApi = createContext<ContextApiType>({
@@ -44,6 +47,9 @@ export const ContextApi = createContext<ContextApiType>({
   addToCart: () => {},
   cartQuantity: 0,
   cartPrice: 0,
+  setCartPrice: () => {},
+  reRender: false,
+  setReRender: () => {},
 });
 
 export function ContextApiProvider({ children }: { children: ReactNode }) {
@@ -52,6 +58,7 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   const [search, setSearch] = useState("");
   const [filter, setFilter] = useState("TODOS OS PRODUTOS");
   const [sortBy, setSortBy] = useState("");
+  const [reRender, setReRender] = useState(false);
 
   const cartItems = JSON.parse(localStorage.getItem('cartItems') || '[]');
   const [cartQuantity, setCartQuantity] = useState(cartItems.reduce((total: number, item: Product) => total + item.quantity, 0));
@@ -67,7 +74,7 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
       setProducts(dataJson.data.allProducts);
     };
     fetchData();
-  }, []);
+  }, [reRender]);
 
   const addToCart = (product: Product, quantity: number) => {
     let cartItems = localStorage.getItem('cartItems');
@@ -95,6 +102,6 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ContextApi.Provider value={{ products, cartItems, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity, cartPrice }}>{children}</ContextApi.Provider>
+    <ContextApi.Provider value={{ products, cartItems, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity, cartPrice, setCartPrice, reRender, setReRender }}>{children}</ContextApi.Provider>
   );
 }
