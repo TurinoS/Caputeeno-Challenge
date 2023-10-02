@@ -1,13 +1,11 @@
 import styled from "styled-components";
 import trash from "../../public/Trash.png";
 import Image from "next/image";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { ContextApi, Product } from "@/context/ContextApi";
 
 interface CartProductProps {
-    image: string,
-    name: string,
-    description: string,
-    price: number,
+    item: Product,
 }
 
 const StyledCartProductCard = styled.div`
@@ -37,12 +35,23 @@ const StyledCartProductCard = styled.div`
                 cursor: pointer;
             }
 
-            & select {
+            & p {
                 background-color: var(--light-gray);
                 color: var(--text-dark);
                 border: 1px solid var(--text-dark);
                 border-radius: 8px;
-                padding: 8px 12px;
+                font-size: 20px;
+
+                & span {
+                    cursor: pointer;
+                    padding: 0 8px;
+                    font-size: 24px;
+
+                    &:hover {
+                        transform: scaleX(1.1);
+                        color: var(--blue);
+                    }
+                }
             }
 
             & h3 {
@@ -57,27 +66,35 @@ const StyledCartProductCard = styled.div`
     }
 `
 
-export default function CartProductCard({ image, name, description, price }: CartProductProps) {
-    const [quantity, setQuantity] = useState(1);
+const updateCartItems = (newCartItems: Product[]) => {
+    localStorage.setItem('cartItems', JSON.stringify(newCartItems));
+  };
+
+export default function CartProductCard({ item }: CartProductProps) {
+    const { products, addToCart } = useContext(ContextApi);
+
+    const handleDecreaseQuantity = () => {
+      if (item.quantity > 0) {
+        addToCart(item, -1);
+      }
+    };
+  
+    const handleIncreaseQuantity = () => {
+      addToCart(item, 1);
+    };
 
     return(
         <StyledCartProductCard>
-            <Image src={image} alt={name} width={240} height={250} />
+            <Image src={item.image_url} alt={item.name} width={240} height={250} />
             <section>
                 <div>
-                    <h2>{name}</h2>
+                    <h2>{item.name}</h2>
                     <Image src={trash} alt="Delete item" width={24} />
                 </div>
-                <p>{description}</p>
+                <p>{item.description}</p>
                 <div>
-                    <select onChange={(e) => setQuantity(Number(e.target.value))}>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                    </select>
-                    <h3>R${price * quantity / 100}</h3>
+                    <p><span onClick={handleDecreaseQuantity}>-</span>{item.quantity}<span onClick={handleIncreaseQuantity}>+</span></p>
+                    <h3>R${item.price_in_cents * item.quantity / 100}</h3>
                 </div>
             </section>
         </StyledCartProductCard>

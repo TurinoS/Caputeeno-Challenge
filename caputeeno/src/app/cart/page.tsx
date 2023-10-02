@@ -14,11 +14,24 @@ const CartPageContainer = styled.section`
     gap: 2em;
 `
 
-export default function CartPage() {
-  const { products } = useContext(ContextApi);
+const StyledError = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2em;
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--red);
+`
 
-  if (!Array.isArray(products) || products.length === 0) {
-    return <div>Loading...</div>;
+export default function CartPage() {
+  const { cartItems } = useContext(ContextApi);
+
+  if (!Array.isArray(cartItems) || cartItems.length === 0) {
+    return (
+        <StyledError><BackButton /><h3>Seu carrinho está vazio</h3></StyledError>
+    )
   }
 
   return (
@@ -26,8 +39,8 @@ export default function CartPage() {
         <BackButton />
         <CartPageContainer>
             <CartProductsList>
-                {products.map((product) => (
-                    <CartProductCard image={product.image_url} name={product.name} description={product.description} price={product.price_in_cents} key={product.id} />
+                {cartItems.map((item) => (
+                    <CartProductCard item={item} key={item.id} />
                 ))}
             </CartProductsList>
             <CartSummary />

@@ -16,6 +16,7 @@ export type Product = {
 
 type ContextApiType = {
   products: Product[];
+  cartItems: Product[];
   page: number;
   setPage: (page: number) => void;
   search: string,
@@ -31,6 +32,7 @@ type ContextApiType = {
 
 export const ContextApi = createContext<ContextApiType>({
   products: [],
+  cartItems: [],
   page: 1,
   setPage: () => {},
   search: "",
@@ -93,6 +95,6 @@ export function ContextApiProvider({ children }: { children: ReactNode }) {
   }
 
   return (
-    <ContextApi.Provider value={{ products, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity, cartPrice }}>{children}</ContextApi.Provider>
+    <ContextApi.Provider value={{ products, cartItems, page, setPage, search, setSearch, filter, setFilter, sortBy, setSortBy, addToCart, cartQuantity, cartPrice }}>{children}</ContextApi.Provider>
   );
 }
