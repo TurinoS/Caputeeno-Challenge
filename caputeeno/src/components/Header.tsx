@@ -6,7 +6,7 @@ import { Saira_Stencil_One } from "next/font/google";
 import shoppingBag from "../../public/Cart.png";
 import serchLoupe from "../../public/Loupe.png";
 import Image from "next/image";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ContextApi } from "@/context/ContextApi";
 
 const sairaStencil = Saira_Stencil_One({
@@ -73,7 +73,8 @@ const StyledInput = styled.form`
 `;
 
 export default function Header() {
-  const { setSearch } = useContext(ContextApi);
+  const { setSearch, cartQuantity } = useContext(ContextApi);
+  
 
   return (
     <StyledHeader>
@@ -87,7 +88,7 @@ export default function Header() {
         </StyledInput>
         <Link href="/cart">
           <Image src={shoppingBag} alt="Shopping bag" width={30} />
-          <span>2</span>
+          <span>{cartQuantity}</span>
         </Link>
       </div>
     </StyledHeader>
