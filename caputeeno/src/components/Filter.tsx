@@ -16,6 +16,12 @@ const StyledFilter = styled.div`
     display: flex;
     gap: 2.5em;
 
+    @media (max-width: 680px) {
+      gap: .5em;
+      align-items: center;
+      font-size: 14px;
+    }
+
     & li {
       cursor: pointer;
 
@@ -56,6 +62,10 @@ const StyledFilter = styled.div`
       top: 100%;
       left: 10px;
       z-index: 1;
+
+      @media (max-width: 680px) {
+        left: 0;
+      }
       
       & li {
         cursor: pointer;

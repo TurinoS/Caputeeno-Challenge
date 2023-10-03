@@ -21,6 +21,14 @@ const StyledHeader = styled.header`
   padding: 1.2em 10em;
   background-color: var(--white);
 
+  @media (max-width: 966px) {
+    padding: 1em;
+  }
+
+  @media (max-width: 680px) {
+    flex-direction: column;
+  }
+
   & a {
     text-decoration: none;
     color: var(--dark-gray);
@@ -32,6 +40,10 @@ const StyledHeader = styled.header`
     display: flex;
     align-items: center;
     gap: 1.5em;
+
+    @media (max-width: 680px) {
+      gap: .5em;
+    }
 
     & a {
       height: 40px;
@@ -62,6 +74,11 @@ const StyledInput = styled.form`
     color: var(--text-dark);
     outline: none;
     height: 40px;
+
+    
+    @media (max-width: 680px) {
+      width: 250px;
+    }
   }
 
   & img {

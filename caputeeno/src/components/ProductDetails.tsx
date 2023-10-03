@@ -18,8 +18,19 @@ const StyledProductDetails = styled.section`
   gap: 2em;
   margin-bottom: 7em;
 
-  & img {
+  @media (max-width: 800px) {
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+  }
+
+  & > img {
     border-radius: 4px;
+
+    @media (max-width: 400px) {
+      width: 320px;
+      height: 340px;
+    }
   }
 
   & div {
@@ -88,7 +99,7 @@ export default function ProductDetails({
   const { addToCart } = useContext(ContextApi)
   return (
     <StyledProductDetails>
-      <Image src={image} alt={name} width={400} height={430} />
+      <Image src={image} alt={name} width={400} height={430} className="productImg" />
       <div>
         <div>
           <h6>{category === "mugs" ? "Canecas" : "Camisetas"}</h6>

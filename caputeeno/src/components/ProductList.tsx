@@ -12,6 +12,10 @@ const StyledSection = styled.section`
   padding-top: 2em;
   flex-wrap: wrap;
   justify-content: space-between;
+
+  @media (max-width: 545px) {
+    justify-content: center;
+  }
 `;
 
 const StyledError = styled.div`

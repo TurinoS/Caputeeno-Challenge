@@ -9,9 +9,14 @@ import CartProductCard from "@/components/CartProductCard";
 import CartSummary from "@/components/CartSummary";
 
 const CartPageContainer = styled.section`
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2em;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 2em;
+
+  @media (max-width: 700px) {
+    display: flex;
+    flex-direction: column;
+  }
 `
 
 const StyledError = styled.div`

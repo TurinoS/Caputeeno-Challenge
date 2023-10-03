@@ -12,6 +12,10 @@ const StyledCartProducts = styled.div`
     grid-column: 2;
     height: 700px;
 
+    @media (max-width: 700px) {
+        height: 500px;
+    }
+
     & section {
 
         display: flex;

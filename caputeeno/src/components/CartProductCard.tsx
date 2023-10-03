@@ -16,15 +16,33 @@ const StyledCartProductCard = styled.div`
     background-color: var(--white);
     overflow: hidden;
 
+    @media (max-width: 500px) {
+        gap: .5em;
+
+        & > img {
+            width: 140px;
+            height: 150px;
+        }
+    }
+
     & section {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         padding: 16px 16px 24px 0;
 
+        @media (max-width: 500px) {
+            padding-bottom: 0;
+        }
+
         & div {
             display: flex;
             justify-content: space-between;
+
+            @media (max-width: 500px) {
+                flex-direction: column;
+                align-items: flex-end;
+            }
 
             & h2 {
                 font-size: 20px;
@@ -42,13 +60,17 @@ const StyledCartProductCard = styled.div`
                 border-radius: 8px;
                 font-size: 20px;
 
+                @media (max-width: 500px) {
+                    font-size: 16px;
+                    line-height: 24px;
+                }
+
                 & span {
                     cursor: pointer;
                     padding: 0 8px;
                     font-size: 24px;
 
                     &:hover {
-                        transform: scaleX(1.1);
                         color: var(--blue);
                     }
                 }

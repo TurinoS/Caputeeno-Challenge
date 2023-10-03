@@ -7,12 +7,16 @@ const StyledCartProducts = styled.div`
     flex-direction: column;
     gap: 1em;
 
+    @media (max-width: 700px) {
+        gap: 0;
+    }
+
     & h2 {
         font-weight: 500;
         color: var(--dark-gray);
     }
 
-    & p {
+    & > p {
         margin: 6px 0 23px;
         font-weight: 300;
 
