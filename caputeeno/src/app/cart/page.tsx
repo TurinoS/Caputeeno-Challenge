@@ -7,6 +7,7 @@ import { ContextApi } from "@/context/ContextApi";
 import { useContext } from "react";
 import CartProductCard from "@/components/CartProductCard";
 import CartSummary from "@/components/CartSummary";
+import { CartStyledError } from "@/styles/StyledError";
 
 const CartPageContainer = styled.section`
   display: grid;
@@ -17,39 +18,31 @@ const CartPageContainer = styled.section`
     display: flex;
     flex-direction: column;
   }
-`
-
-const StyledError = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  margin-top: 2em;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--red);
-`
+`;
 
 export default function CartPage() {
   const { cartItems } = useContext(ContextApi);
 
   if (!Array.isArray(cartItems) || cartItems.length === 0) {
     return (
-        <StyledError><BackButton /><h3>Seu carrinho está vazio</h3></StyledError>
-    )
+      <CartStyledError>
+        <BackButton />
+        <h3>Seu carrinho está vazio</h3>
+      </CartStyledError>
+    );
   }
 
   return (
     <main>
-        <BackButton />
-        <CartPageContainer>
-            <CartProductsList>
-                {cartItems.map((item) => (
-                    <CartProductCard item={item} key={item.id} />
-                ))}
-            </CartProductsList>
-            <CartSummary />
-        </CartPageContainer>
+      <BackButton />
+      <CartPageContainer>
+        <CartProductsList>
+          {cartItems.map((item) => (
+            <CartProductCard item={item} key={item.id} />
+          ))}
+        </CartProductsList>
+        <CartSummary />
+      </CartPageContainer>
     </main>
   );
 }

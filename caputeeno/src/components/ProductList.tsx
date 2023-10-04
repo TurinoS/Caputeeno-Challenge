@@ -1,30 +1,10 @@
 "use client";
 
 import ProductCard from "./ProductCard";
-import styled from "styled-components";
 import { useContext } from "react";
 import { ContextApi } from "@/context/ContextApi";
-
-const StyledSection = styled.section`
-  display: flex;
-  column-gap: 2em;
-  row-gap: 1.5em;
-  padding-top: 2em;
-  flex-wrap: wrap;
-  justify-content: space-between;
-
-  @media (max-width: 545px) {
-    justify-content: center;
-  }
-`;
-
-const StyledError = styled.div`
-  text-align: center;
-  margin-top: 2em;
-  font-size: 20px;
-  font-weight: 500;
-  color: var(--red);
-`
+import { StyledError } from "@/styles/StyledError";
+import { StyledSection } from "@/styles/ProductListStyles";
 
 export default function ProductList() {
   const { products, page, filter, sortBy, search } = useContext(ContextApi);
@@ -32,7 +12,7 @@ export default function ProductList() {
   let productsSearched = products;
   let productsToRender = products;
 
-  if(search === "") {
+  if (search === "") {
     productsSearched = products;
   } else {
     const searchLowerCase = search.toLowerCase();
@@ -45,14 +25,20 @@ export default function ProductList() {
   if (filter === "TODOS OS PRODUTOS") {
     productsToRender = productsSearched;
   } else if (filter === "CANECAS") {
-    productsToRender = productsSearched.filter((product) => product.category === "mugs");
+    productsToRender = productsSearched.filter(
+      (product) => product.category === "mugs"
+    );
   } else if (filter === "CAMISETAS") {
-    productsToRender = productsSearched.filter((product) => product.category === "t-shirts");
+    productsToRender = productsSearched.filter(
+      (product) => product.category === "t-shirts"
+    );
   }
 
   if (sortBy === "newest") {
     productsToRender.sort((a, b) => {
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
     });
   } else if (sortBy === "costlier") {
     productsToRender.sort((a, b) => b.price_in_cents - a.price_in_cents);
@@ -64,12 +50,12 @@ export default function ProductList() {
 
   if (productsToRender.length === 0 && search) {
     return <StyledError>Produto não encontrado</StyledError>;
-  } else if(productsToRender.length === 0) {
+  } else if (productsToRender.length === 0) {
     return <StyledError>Carregando...</StyledError>;
   }
 
   const firstProduct = (page - 1) * 12;
-  const lastProduct = (page * 12);
+  const lastProduct = page * 12;
 
   return (
     <StyledSection>

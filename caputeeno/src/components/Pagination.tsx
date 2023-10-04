@@ -1,46 +1,16 @@
 "use client";
 
-import styled from "styled-components";
 import arrowRight from "../../public/RightArrow.png";
 import arrowLeft from "../../public/LeftArrow.png";
 import Image from "next/image";
 import { useContext } from "react";
 import { ContextApi } from "@/context/ContextApi";
-
-const PaginationList = styled.ul`
-  list-style: none;
-  display: flex;
-  justify-content: flex-end;
-  gap: 2px;
-
-  & li {
-    background-color: var(--gray);
-    border-radius: 8px;
-    width: 25px;
-    height: 25px;
-    text-align: center;
-    border: 1px solid var(--gray);
-    cursor: pointer;
-  }
-
-  & .arrow {
-    margin-left: 6px;
-  }
-
-  & .selected {
-    border: 1px solid var(--orange);
-    background-color: var(--light-gray);
-
-    & p {
-      color: var(--orange);
-    }
-  }
-`;
+import { PaginationList } from "@/styles/Pagination";
 
 export default function Pagination() {
   const { page, setPage, filter, search } = useContext(ContextApi);
 
-  let pageNumber = [1, 2, 3, 4, 5]
+  let pageNumber = [1, 2, 3, 4, 5];
 
   if (filter === "TODOS OS PRODUTOS") {
     pageNumber = [1, 2, 3, 4, 5];
@@ -50,11 +20,14 @@ export default function Pagination() {
 
   return (
     <PaginationList>
-      {!search &&
+      {!search && (
         <>
           {pageNumber.map((number) => (
             <div key={number}>
-              <li onClick={() => setPage(number)} className={page === number ? "selected" : ""}>
+              <li
+                onClick={() => setPage(number)}
+                className={page === number ? "selected" : ""}
+              >
                 <p>{number}</p>
               </li>
             </div>
@@ -70,7 +43,7 @@ export default function Pagination() {
             </p>
           </li>
         </>
-      }
+      )}
     </PaginationList>
   );
 }
